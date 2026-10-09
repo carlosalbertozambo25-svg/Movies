@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carlos Movies — Cinema para descobrir</title>
+<style>
+:root{--bg:#090b10;--panel:#141821;--muted:#aab2c0;--red:#e50914;--gold:#f6c453;--accent:#e50914}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif;transition:background .35s}
+header{padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#0c0e14;border-bottom:1px solid #242936;position:sticky;top:0;z-index:5}
+.logo{font-size:1.45rem;font-weight:900;letter-spacing:.4px;white-space:nowrap}.logo span{color:var(--accent)}
+nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap}nav a{color:#e7e9ee;text-decoration:none;font-size:.93rem}nav a:hover{color:var(--gold)}
+.actions{display:flex;gap:8px;align-items:center}.search{width:min(270px,48vw);padding:11px 12px;border-radius:9px;border:1px solid #343a48;background:#171b25;color:white}.btn{display:inline-block;padding:10px 14px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;font-weight:bold;border:0;cursor:pointer}.btn.secondary{background:#202532;border:1px solid #343a48}
+.hero{padding:55px 5% 45px;min-height:300px;background:linear-gradient(90deg,rgba(8,10,15,.97),rgba(8,10,15,.55)),radial-gradient(ellipse at 75% 20%,#61202b,#171a2a 55%,#090b10);background-size:cover;background-position:center;display:flex;align-items:center;transition:background .35s}
+.hero-inner{max-width:690px}.tag{color:var(--gold);font-size:.78rem;font-weight:bold;letter-spacing:2px}.hero h1{font-size:clamp(2rem,5vw,3.7rem);line-height:1.05;margin:13px 0}.hero p{color:#d3d7df;max-width:560px;line-height:1.65}.hero-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+main{padding:26px 5% 55px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}.section-head h2{margin:0 0 6px}.sub{color:var(--muted);font-size:.9rem;margin:0 0 12px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}.filters button{background:#171b25;color:#e6e9ef;border:1px solid #303645;border-radius:20px;padding:9px 14px;cursor:pointer}.filters button.active{background:var(--accent);border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:17px}.card{background:var(--panel);border:1px solid #252b38;border-radius:12px;overflow:hidden;transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.poster{height:220px;display:flex;align-items:end;padding:14px;font-size:1.25rem;line-height:1.1;font-weight:900;background:linear-gradient(0deg,rgba(0,0,0,.92),transparent 75%),var(--poster);background-size:cover;background-position:center}.badge{display:inline-block;font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:#fff;background:#343b4c;padding:4px 7px;border-radius:5px;margin-bottom:8px}.info{padding:13px}.info h3{margin:0 0 7px;font-size:1rem}.meta{font-size:.82rem;color:var(--muted)}.rating{color:var(--gold);margin:9px 0}.info p{font-size:.87rem;color:#c3c9d4;line-height:1.45;min-height:50px}.info a{color:#fff;font-size:.85rem}.card-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.card-buttons a,.card-buttons button{font-size:.8rem;padding:8px 9px;border-radius:7px;background:#252b38;border:1px solid #343a48;color:#fff;text-decoration:none;cursor:pointer}.card-buttons a.primary{background:var(--accent);border-color:var(--accent)}
+.empty{color:var(--muted);display:none}.feature{margin-top:34px;padding:24px;border:1px solid #292f3c;background:linear-gradient(120deg,#151923,#10131a);border-radius:14px}.feature h2{margin-top:0}.feature p{color:#c3c9d4;line-height:1.6}
+footer{border-top:1px solid #242936;padding:25px 5%;color:var(--muted);font-size:.85rem;line-height:1.6}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:10;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.dialog{width:min(420px,100%);background:#141821;border:1px solid #343a48;border-radius:15px;padding:24px;position:relative}.dialog h2{margin-top:0}.dialog label{display:block;margin:12px 0 6px;color:#d7dbe3;font-size:.9rem}.dialog input{width:100%;padding:12px;background:#090b10;border:1px solid #343a48;border-radius:8px;color:white}.dialog .btn{width:100%;margin-top:15px}.close{position:absolute;right:14px;top:12px;background:none;color:white;border:0;font-size:1.5rem;cursor:pointer}.notice{font-size:.8rem;color:var(--muted);line-height:1.45}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#202532;color:white;border:1px solid #41495a;border-radius:9px;padding:12px 16px;display:none;z-index:15}
+@media(max-width:650px){header{position:relative}.hero{min-height:260px;padding-top:40px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.poster{height:190px;font-size:1.05rem}.info{padding:10px}.info p{min-height:70px}.logo{font-size:1.25rem}nav{order:3;width:100%;justify-content:space-between}.actions{flex:1;justify-content:flex-end}.search{min-width:100px;flex:1}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">CARLOS <span>MOVIES</span></div>
+ <nav><a href="#inicio">Início</a><a href="#catalogo">Filmes</a><a href="#sobre">Sobre</a></nav>
+ <div class="actions"><input id="search" class="search" type="search" placeholder="Pesquisar filmes…" aria-label="Pesquisar filmes"><button class="btn" id="loginOpen">Entrar</button></div>
+</header>
+<section class="hero" id="inicio"><div class="hero-inner">
+ <div class="tag" id="heroTag">O TEU GUIA DE CINEMA</div><h1 id="heroTitle">Grandes histórias.<br>Uma só página.</h1>
+ <p id="heroDesc">Descobre filmes, consulta sinopses e avaliações e encontra opções para assistir nas plataformas oficiais.</p>
+ <div class="hero-buttons"><a class="btn" href="#catalogo">Explorar filmes ↓</a><button class="btn secondary" id="randomBtn">Surpreende-me 🎲</button></div>
+</div></section>
+<main id="catalogo">
+ <div class="section-head"><div><h2>Explorar catálogo</h2><p class="sub">Filmes reais e histórias fictícias criadas para este site.</p></div><span class="sub" id="count"></span></div>
+ <div class="filters" id="filters"></div><div class="grid" id="grid"></div><p class="empty" id="empty">Não encontrámos filmes com essa pesquisa.</p>
+ <section class="feature" id="sobre"><h2>🍿 Sobre o Carlos Movies</h2><p>Um espaço para descobrir cinema, explorar géneros e encontrar páginas oficiais onde procurar cada título. Selecciona uma categoria para mudar o ambiente visual do site — por exemplo, terror fica mais sombrio, romance ganha tons quentes e animação fica mais colorida.</p><p class="notice">Nota: este site é um catálogo demonstrativo. O formulário de login é apenas visual e não cria contas nem guarda palavras-passe. A disponibilidade dos filmes varia conforme o país e o serviço.</p></section>
+</main>
+<footer><strong>CARLOS MOVIES</strong> — feito para descobrir histórias. Os filmes reais são títulos existentes; os fictícios estão identificados como criações. Não alojamos nem transmitimos filmes.</footer>
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="dialog"><button class="close" id="loginClose" aria-label="Fechar">×</button><h2 id="modalTitle">Entrar no Carlos Movies</h2><p class="notice">Demonstração visual — o login ainda não está ligado a uma base de dados.</p><form id="loginForm"><label for="email">E-mail</label><input id="email" type="email" placeholder="teuemail@exemplo.com" required><label for="password">Palavra-passe</label><input id="password" type="password" placeholder="A tua palavra-passe" required><button class="btn" type="submit">Entrar</button></form><button class="btn secondary" id="signupBtn">Criar conta (demonstração)</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const movies=[
+{title:"Titanic",year:1997,genre:"Romance",rating:"⭐ 7.9",real:true,desc:"Um romance inesquecível a bordo de um navio em viagem inaugural.",color:"linear-gradient(135deg,#193b56,#9a514d)"},
+{title:"Shrek",year:2001,genre:"Animação",rating:"⭐ 7.9",real:true,desc:"Um ogre parte numa aventura para recuperar o seu pântano.",color:"linear-gradient(135deg,#397b39,#b1a64a)"},
+{title:"Toy Story",year:1995,genre:"Animação",rating:"⭐ 8.3",real:true,desc:"Os brinquedos ganham vida quando os humanos não estão a ver.",color:"linear-gradient(135deg,#2378b5,#d5a33a)"},
+{title:"Coraline",year:2009,genre:"Terror",rating:"⭐ 7.7",real:true,desc:"Uma jovem encontra uma versão estranha da sua própria casa.",color:"linear-gradient(135deg,#101c42,#6b315b)"},
+{title:"The Batman",year:2022,genre:"Acção",rating:"⭐ 7.8",real:true,desc:"Um detective encapuzado investiga crimes que abalam Gotham.",color:"linear-gradient(135deg,#151820,#6a2028)"},
+{title:"A Quiet Place",year:2018,genre:"Terror",rating:"⭐ 7.5",real:true,desc:"Uma família tenta sobreviver num mundo onde o som é perigoso.",color:"linear-gradient(135deg,#344b36,#111b18)"},
+{title:"Interstellar",year:2014,genre:"Ficção científica",rating:"⭐ 8.7",real:true,desc:"Uma missão espacial procura um futuro para a humanidade.",color:"linear-gradient(135deg,#4b4d65,#10131c)"},
+{title:"Dune: Part Two",year:2024,genre:"Ficção científica",rating:"⭐ 8.5",real:true,desc:"Paul une-se aos Fremen numa jornada pelo destino de Arrakis.",color:"linear-gradient(135deg,#b77b37,#3b2a22)"},
+{title:"Free Guy",year:2021,genre:"Comédia",rating:"⭐ 7.1",real:true,desc:"Um homem descobre que a sua vida faz parte de um videojogo.",color:"linear-gradient(135deg,#2284b4,#7e4ba4)"},
+{title:"The Super Mario Bros. Movie",year:2023,genre:"Animação",rating:"⭐ 7.0",real:true,desc:"Mario parte numa aventura colorida para salvar o Reino dos Cogumelos.",color:"linear-gradient(135deg,#168e65,#c94d2e)"},
+{title:"Cartas para o Amanhã",year:2026,genre:"Romance",rating:"✦ História original",real:false,desc:"Duas pessoas encontram cartas que parecem ter sido escritas pelo futuro.",color:"linear-gradient(135deg,#8c425b,#f0b36a)"},
+{title:"A Cidade das Sombras",year:2026,genre:"Terror",rating:"✦ História original",real:false,desc:"Numa cidade onde as luzes se apagam à meia-noite, ninguém conhece as regras.",color:"linear-gradient(135deg,#070912,#382448)"},
+{title:"Operação Horizonte",year:2026,genre:"Acção",rating:"✦ História original",real:false,desc:"Uma equipa tem uma noite para impedir uma crise internacional fictícia.",color:"linear-gradient(135deg,#24465b,#b04a31)"},
+{title:"O Último Planeta",year:2026,genre:"Ficção científica",rating:"✦ História original",real:false,desc:"Uma tripulação recebe um sinal de um planeta que não devia existir.",color:"linear-gradient(135deg,#152b58,#6c4aa1)"},
+{title:"Rir até Amanhã",year:2026,genre:"Comédia",rating:"✦ História original",real:false,desc:"Dois amigos transformam um pequeno erro numa aventura caótica.",color:"linear-gradient(135deg,#d19b35,#ce4d48)"},
+{title:"O Jardim das Estrelas",year:2026,genre:"Fantasia",rating:"✦ História original",real:false,desc:"Uma aprendiz descobre um jardim onde cada estrela guarda uma memória.",color:"linear-gradient(135deg,#254e67,#7b4d9c)"}
+];
+const theme={
+"Todos":{accent:"#e50914",bg:"radial-gradient(ellipse at 75% 20%,#61202b,#171a2a 55%,#090b10)",tag:"O TEU GUIA DE CINEMA",title:"Grandes histórias.<br>Uma só página.",desc:"Descobre filmes, consulta sinopses e avaliações e encontra opções para assistir nas plataformas oficiais."},
+"Acção":{accent:"#f04b32",bg:"radial-gradient(ellipse at 75% 20%,#6b2a1c,#1b1a21 55%,#090b10)",tag:"ADRENALINA NO MÁXIMO",title:"Acção sem limites.",desc:"Missões, perseguições e heróis no centro da aventura."},
+"Romance":{accent:"#e56b91",bg:"radial-gradient(ellipse at 75% 20%,#7e3154,#302033 55%,#100b13)",tag:"HISTÓRIAS DO CORAÇÃO",title:"Histórias que aproximam.",desc:"Descobre romances, encontros inesperados e emoções que ficam."},
+"Terror":{accent:"#9f2435",bg:"radial-gradient(ellipse at 75% 20%,#50111e,#17101a 55%,#050507)",tag:"CORAGEM PARA CONTINUAR?",title:"Entra se tiveres coragem.",desc:"Mistérios sombrios e histórias arrepiantes esperam por ti."},
+"Comédia":{accent:"#e7a52b",bg:"radial-gradient(ellipse at 75% 20%,#73511c,#292018 55%,#100c08)",tag:"HORA DE RIR",title:"Boa disposição começa aqui.",desc:"Escolhe uma comédia e deixa o mau humor à porta."},
+"Animação":{accent:"#42b7c9",bg:"radial-gradient(ellipse at 75% 20%,#155c76,#242451 55%,#090b10)",tag:"IMAGINAÇÃO SEM FIM",title:"Mundos para descobrir.",desc:"Aventura, cor e personagens para todas as idades."},
+"Ficção científica":{accent:"#7b76ff",bg:"radial-gradient(ellipse at 75% 20%,#273d7c,#19182d 55%,#070910)",tag:"PARA ALÉM DO CONHECIDO",title:"O futuro começa agora.",desc:"Explora galáxias, tecnologias e mundos impossíveis."},
+"Fantasia":{accent:"#a978f2",bg:"radial-gradient(ellipse at 75% 20%,#483276,#1b1a31 55%,#080910)",tag:"MAGIA À TUA ESPERA",title:"Acredita no impossível.",desc:"Entra em mundos mágicos e aventuras extraordinárias."}
+};
+let selected="Todos";const filters=document.getElementById("filters"),grid=document.getElementById("grid"),search=document.getElementById("search");
+const genres=["Todos",...new Set(movies.map(m=>m.genre))];
+genres.forEach(g=>{const b=document.createElement("button");b.textContent=g;b.className=g==="Todos"?"active":"";b.onclick=()=>{selected=g;[...filters.children].forEach(x=>x.classList.toggle("active",x===b));applyTheme(g);render()};filters.appendChild(b)});
+function applyTheme(g){const t=theme[g]||theme.Todos;document.documentElement.style.setProperty("--accent",t.accent);const hero=document.querySelector(".hero");hero.style.background=`linear-gradient(90deg,rgba(8,10,15,.97),rgba(8,10,15,.55)),${t.bg}`;document.getElementById("heroTag").textContent=t.tag;document.getElementById("heroTitle").innerHTML=t.title;document.getElementById("heroDesc").textContent=t.desc}
+function render(){const q=search.value.toLowerCase();const list=movies.filter(m=>(selected==="Todos"||m.genre===selected)&&(m.title+" "+m.genre+" "+m.year+(m.real?" real":" fictício")).toLowerCase().includes(q));grid.innerHTML="";document.getElementById("count").textContent=list.length+" títulos";document.getElementById("empty").style.display=list.length?"none":"block";list.forEach(m=>{const c=document.createElement("article");c.className="card";const searchUrl="https://www.justwatch.com/pt/pesquisa?q="+encodeURIComponent(m.title);c.innerHTML=`<div class="poster" style="--poster:${m.color}"><div><span class="badge">${m.real?"Filme real":"Ficção original"}</span><br>${m.title}</div></div><div class="info"><h3>${m.title}</h3><div class="meta">${m.year} · ${m.genre}</div><div class="rating">${m.rating}</div><p>${m.desc}</p><div class="card-buttons"><a class="primary" target="_blank" rel="noopener" href="${searchUrl}">Onde assistir ↗</a><button class="details" type="button">Detalhes</button></div></div>`;c.querySelector(".details").onclick=()=>showToast(m.title+": "+m.desc);grid.appendChild(c)})}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",4000)}
+search.addEventListener("input",render);
+document.getElementById("randomBtn").onclick=()=>{const m=movies[Math.floor(Math.random()*movies.length)];selected=m.genre;[...filters.children].forEach(b=>b.classList.toggle("active",b.textContent===selected));search.value=m.title;applyTheme(selected);render();document.getElementById("catalogo").scrollIntoView()};
+const modal=document.getElementById("loginModal");document.getElementById("loginOpen").onclick=()=>modal.classList.add("open");document.getElementById("loginClose").onclick=()=>modal.classList.remove("open");modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("open")});
+document.getElementById("loginForm").onsubmit=e=>{e.preventDefault();showToast("Demonstração: o login ainda não está ligado a um sistema de contas.");modal.classList.remove("open")};document.getElementById("signupBtn").onclick=()=>showToast("O cadastro será activado quando o site tiver uma base de dados segura.");
+applyTheme("Todos");render();
+</script>
+</body></html>
